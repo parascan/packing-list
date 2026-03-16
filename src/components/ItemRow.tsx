@@ -1,4 +1,5 @@
 import { PackItem } from '../types'
+import { itemEmoji } from '../emojiUtils'
 
 interface Props {
   item: PackItem
@@ -13,7 +14,7 @@ export default function ItemRow({ item, onToggle, onDelete }: Props) {
         {item.photo ? (
           <img src={item.photo} alt={item.name} className="item-photo" />
         ) : (
-          <div className="item-photo-placeholder">📦</div>
+          <div className="item-photo-placeholder">{itemEmoji(item.name, item.category)}</div>
         )}
       </div>
       <div className="item-info" onClick={onToggle}>
