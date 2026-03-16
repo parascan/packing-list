@@ -2,12 +2,62 @@ import { Trip, TripType } from './types'
 
 // Hardcoded starter sets per trip type — used when no history exists
 const TEMPLATES: Record<TripType, string[]> = {
-  beach: ['Sunscreen', 'Swimsuit', 'Flip flops', 'Sunglasses', 'Beach towel', 'Hat', 'Aloe vera'],
-  ski: ['Ski jacket', 'Ski pants', 'Gloves', 'Goggles', 'Base layer', 'Helmet', 'Ski socks', 'Hand warmers'],
-  city: ['Walking shoes', 'Umbrella', 'Camera', 'Day bag', 'Guidebook', 'Portable charger'],
-  hiking: ['Hiking boots', 'Backpack', 'Water bottle', 'Trail map', 'First aid kit', 'Sunscreen', 'Bug spray', 'Snacks'],
-  camping: ['Tent', 'Sleeping bag', 'Flashlight', 'Matches', 'Camp stove', 'Bug spray', 'Rain jacket', 'Rope'],
-  business: ['Dress shirt', 'Dress shoes', 'Laptop', 'Charger', 'Business cards', 'Blazer', 'Belt', 'Notebook'],
+  beach: [
+    'Sunscreen', 'Swimsuit', 'Flip flops', 'Sunglasses', 'Beach towel', 'Hat',
+    'Aloe vera', 'Rash guard', 'Beach bag', 'Bug spray', 'After sun lotion', 'Waterproof phone case',
+  ],
+  ski: [
+    'Ski jacket', 'Ski pants', 'Gloves', 'Goggles', 'Base layer', 'Helmet',
+    'Ski socks', 'Hand warmers', 'Neck gaiter', 'Lip balm', 'Sunscreen', 'Thermal underwear', 'Après ski boots',
+  ],
+  city: [
+    'Walking shoes', 'Umbrella', 'Camera', 'Day bag', 'Portable charger', 'Sunglasses',
+    'Rain jacket', 'Comfortable jeans', 'Smart casual outfit', 'Crossbody bag', 'Guidebook',
+  ],
+  hiking: [
+    'Hiking boots', 'Backpack', 'Water bottle', 'Trail map', 'First aid kit',
+    'Sunscreen', 'Bug spray', 'Snacks', 'Headlamp', 'Rain jacket', 'Trekking poles',
+    'Compass', 'Emergency whistle', 'Blister pads', 'Gaiters',
+  ],
+  camping: [
+    'Tent', 'Sleeping bag', 'Sleeping pad', 'Flashlight', 'Matches', 'Camp stove',
+    'Bug spray', 'Rain jacket', 'Rope', 'Camping chair', 'Cooler', 'Lantern',
+    'Pocket knife', 'Bear canister', 'Fire starter',
+  ],
+  business: [
+    'Dress shirt', 'Dress pants', 'Dress shoes', 'Blazer', 'Tie', 'Belt',
+    'Laptop', 'Charger', 'Business cards', 'Notebook', 'Pen', 'Portable charger', 'Folder',
+  ],
+  cruise: [
+    'Formal wear', 'Swimsuit', 'Sunscreen', 'Sunglasses', 'Flip flops', 'Casual outfits',
+    'Dress shoes', 'Motion sickness medicine', 'Lanyard', 'Day bag', 'Light jacket',
+    'Passport', 'Formal dinner outfit', 'Waterproof phone case',
+  ],
+  'road-trip': [
+    'Snacks', 'Water bottle', 'Phone charger', 'Sunglasses', 'Comfortable clothes',
+    'Pillow', 'Blanket', 'First aid kit', 'Flashlight', 'Cash', 'Travel mug',
+    'Rain jacket', 'Entertainment', 'GPS / maps',
+  ],
+  festival: [
+    'Tent', 'Sleeping bag', 'Rain poncho', 'Wellies', 'Comfortable shoes', 'Sunscreen',
+    'Portable charger', 'Earplugs', 'Cash', 'Reusable water bottle', 'Backpack',
+    'Hand sanitizer', 'Layers', 'Bin bags', 'Headlamp', 'Wet wipes',
+  ],
+  backpacking: [
+    'Backpack', 'Passport', 'Hostel lock', 'Travel towel', 'Comfortable walking shoes',
+    'Lightweight jacket', 'Portable charger', 'Earplugs', 'Eye mask', 'Money belt',
+    'First aid kit', 'Reusable water bottle', 'Flip flops', 'Dry bag',
+  ],
+  wedding: [
+    'Dress / suit', 'Dress shoes', 'Tie / accessories', 'Card or gift', 'Camera',
+    'Clutch bag', 'Touch up kit', 'Breath mints', 'Phone charger', 'Umbrella',
+    'Formal underwear', 'Stain remover pen',
+  ],
+  sports: [
+    'Jersey', 'Comfortable shoes', 'Sunscreen', 'Sunglasses', 'Rain jacket', 'Cap or hat',
+    'Portable charger', 'Cash', 'Snacks', 'Reusable water bottle', 'Binoculars',
+    'Hand warmers', 'Ear muffs', 'Blanket',
+  ],
 }
 
 function normalize(name: string) {

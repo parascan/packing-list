@@ -2,12 +2,18 @@ import { useState } from 'react'
 import { Trip, TripType } from '../types'
 
 const TRIP_TYPES: { value: TripType; label: string; emoji: string }[] = [
-  { value: 'beach', label: 'Beach', emoji: '🏖️' },
-  { value: 'ski', label: 'Ski', emoji: '⛷️' },
-  { value: 'city', label: 'City', emoji: '🏙️' },
-  { value: 'hiking', label: 'Hiking', emoji: '🥾' },
-  { value: 'camping', label: 'Camping', emoji: '⛺' },
-  { value: 'business', label: 'Business', emoji: '💼' },
+  { value: 'beach',       label: 'Beach',       emoji: '🏖️' },
+  { value: 'ski',         label: 'Ski',         emoji: '⛷️' },
+  { value: 'city',        label: 'City',        emoji: '🏙️' },
+  { value: 'hiking',      label: 'Hiking',      emoji: '🥾' },
+  { value: 'camping',     label: 'Camping',     emoji: '⛺' },
+  { value: 'business',    label: 'Business',    emoji: '💼' },
+  { value: 'cruise',      label: 'Cruise',      emoji: '🚢' },
+  { value: 'road-trip',   label: 'Road Trip',   emoji: '🚗' },
+  { value: 'festival',    label: 'Festival',    emoji: '🎪' },
+  { value: 'backpacking', label: 'Backpacking', emoji: '🎒' },
+  { value: 'wedding',     label: 'Wedding',     emoji: '💒' },
+  { value: 'sports',      label: 'Sports',      emoji: '🏟️' },
 ]
 
 interface Props {

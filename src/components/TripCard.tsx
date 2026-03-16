@@ -1,12 +1,18 @@
 import { Trip, TripType } from '../types'
 
 const TYPE_EMOJI: Record<TripType, string> = {
-  beach: '🏖️',
-  ski: '⛷️',
-  city: '🏙️',
-  hiking: '🥾',
-  camping: '⛺',
-  business: '💼',
+  beach:       '🏖️',
+  ski:         '⛷️',
+  city:        '🏙️',
+  hiking:      '🥾',
+  camping:     '⛺',
+  business:    '💼',
+  cruise:      '🚢',
+  'road-trip': '🚗',
+  festival:    '🎪',
+  backpacking: '🎒',
+  wedding:     '💒',
+  sports:      '🏟️',
 }
 
 interface Props {

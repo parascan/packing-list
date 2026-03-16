@@ -6,12 +6,18 @@ import SuggestionPanel from './SuggestionPanel'
 import AddItemModal from './AddItemModal'
 
 const TYPE_EMOJI: Record<TripType, string> = {
-  beach: '🏖️',
-  ski: '⛷️',
-  city: '🏙️',
-  hiking: '🥾',
-  camping: '⛺',
-  business: '💼',
+  beach:       '🏖️',
+  ski:         '⛷️',
+  city:        '🏙️',
+  hiking:      '🥾',
+  camping:     '⛺',
+  business:    '💼',
+  cruise:      '🚢',
+  'road-trip': '🚗',
+  festival:    '🎪',
+  backpacking: '🎒',
+  wedding:     '💒',
+  sports:      '🏟️',
 }
 
 interface Props {

@@ -1,4 +1,6 @@
-export type TripType = 'beach' | 'ski' | 'city' | 'hiking' | 'camping' | 'business'
+export type TripType =
+  | 'beach' | 'ski' | 'city' | 'hiking' | 'camping' | 'business'
+  | 'cruise' | 'road-trip' | 'festival' | 'backpacking' | 'wedding' | 'sports'
 
 export interface PackItem {
   id: string
