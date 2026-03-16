@@ -5,11 +5,17 @@ interface Props {
   item: PackItem
   onToggle: () => void
   onDelete: () => void
+  dragHandleProps?: React.HTMLAttributes<HTMLDivElement>
 }
 
-export default function ItemRow({ item, onToggle, onDelete }: Props) {
+export default function ItemRow({ item, onToggle, onDelete, dragHandleProps }: Props) {
   return (
     <div className={`item-row${item.packed ? ' packed' : ''}`}>
+      {dragHandleProps && (
+        <div className="drag-handle" {...dragHandleProps} aria-label="Drag to reorder">
+          ⠿
+        </div>
+      )}
       <div className="item-photo-slot" onClick={onToggle}>
         {item.photo ? (
           <img src={item.photo} alt={item.name} className="item-photo" />

@@ -21,5 +21,6 @@ export interface Trip {
   endDate: string   // YYYY-MM-DD
   type: TripType
   items: PackItem[]
+  notes?: string
   createdAt: string
 }

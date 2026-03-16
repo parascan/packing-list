@@ -30,6 +30,21 @@ export default function App() {
     if (activeId === id) setActiveId(null)
   }
 
+  function handleDuplicate(id: string) {
+    const original = trips.find(t => t.id === id)
+    if (!original) return
+    const copy: Trip = {
+      ...original,
+      id: crypto.randomUUID(),
+      name: `${original.name} (copy)`,
+      items: original.items.map(i => ({ ...i, id: crypto.randomUUID(), packed: false })),
+      createdAt: new Date().toISOString(),
+    }
+    upsertTrip(copy)
+    setTrips(loadTrips())
+    setActiveId(copy.id)
+  }
+
   if (activeTrip) {
     return (
       <TripDetail
@@ -57,6 +72,7 @@ export default function App() {
             trip={trip}
             onClick={() => setActiveId(trip.id)}
             onDelete={() => handleDelete(trip.id)}
+            onDuplicate={() => handleDuplicate(trip.id)}
           />
         ))}
       </div>

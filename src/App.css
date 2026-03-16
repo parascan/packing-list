@@ -458,6 +458,36 @@ html, body {
   font-size: .95rem;
 }
 
+/* ── Trip card actions ── */
+.trip-card-actions {
+  display: flex;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+/* ── Trip notes ── */
+.trip-notes {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-size: .875rem;
+  color: var(--gray-800);
+  background: var(--gray-50);
+  resize: none;
+  font-family: inherit;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  transition: border-color .15s, background .15s;
+  min-height: 44px;
+}
+.trip-notes:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: #fff;
+}
+.trip-notes::placeholder { color: var(--gray-400); }
+
 /* ── Item row ── */
 .item-row {
   display: flex;
@@ -471,6 +501,19 @@ html, body {
 }
 .item-row:hover { background: var(--gray-50); }
 .item-row.packed { opacity: .55; }
+
+/* ── Drag handle ── */
+.drag-handle {
+  color: var(--gray-400);
+  font-size: 1.1rem;
+  cursor: grab;
+  padding: 0 2px;
+  flex-shrink: 0;
+  touch-action: none;
+  user-select: none;
+  line-height: 1;
+}
+.drag-handle:active { cursor: grabbing; }
 
 .item-photo-slot {
   width: 48px;

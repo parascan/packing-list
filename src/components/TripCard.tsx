@@ -19,6 +19,7 @@ interface Props {
   trip: Trip
   onClick: () => void
   onDelete: () => void
+  onDuplicate: () => void
 }
 
 function formatDate(iso: string) {
@@ -28,7 +29,7 @@ function formatDate(iso: string) {
   })
 }
 
-export default function TripCard({ trip, onClick, onDelete }: Props) {
+export default function TripCard({ trip, onClick, onDelete, onDuplicate }: Props) {
   const total = trip.items.length
   const packed = trip.items.filter(i => i.packed).length
   const pct = total === 0 ? 0 : Math.round((packed / total) * 100)
@@ -36,6 +37,11 @@ export default function TripCard({ trip, onClick, onDelete }: Props) {
   function handleDelete(e: React.MouseEvent) {
     e.stopPropagation()
     if (confirm(`Delete "${trip.name}"?`)) onDelete()
+  }
+
+  function handleDuplicate(e: React.MouseEvent) {
+    e.stopPropagation()
+    onDuplicate()
   }
 
   return (
@@ -49,9 +55,14 @@ export default function TripCard({ trip, onClick, onDelete }: Props) {
             {formatDate(trip.startDate)} – {formatDate(trip.endDate)}
           </span>
         </div>
-        <button className="btn-icon delete-btn" onClick={handleDelete} aria-label="Delete trip">
-          ✕
-        </button>
+        <div className="trip-card-actions">
+          <button className="btn-icon" onClick={handleDuplicate} aria-label="Duplicate trip" title="Duplicate">
+            ⧉
+          </button>
+          <button className="btn-icon delete-btn" onClick={handleDelete} aria-label="Delete trip">
+            ✕
+          </button>
+        </div>
       </div>
       <div className="trip-progress-bar">
         <div className="trip-progress-fill" style={{ width: `${pct}%` }} />
