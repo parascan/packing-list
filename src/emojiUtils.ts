@@ -237,6 +237,61 @@ const CATEGORY_FALLBACKS: Record<string, string> = {
   laundry:     '🧼',
 }
 
+const CATEGORY_RULES: [RegExp, string][] = [
+  // Clothes
+  [/polo|shirt|tee|t-shirt|blouse|tank|cami|sweater|hoodie|pullover|sweatshirt|fleece/i, 'Clothes'],
+  [/jacket|coat|parka|windbreaker|blazer|cardigan|vest|gilet|robe|bathrobe/i,            'Clothes'],
+  [/pajama|pyjama|sleepwear|nightwear|nightgown/i,                                        'Clothes'],
+  [/dress|skirt|gown|suit|tuxedo|tie|necktie|bow.?tie/i,                                  'Clothes'],
+  [/jeans|denim|pants|trousers|chinos|legging|sweatpant|shorts|swim.?short|board.?short/i,'Clothes'],
+  [/sneaker|trainer|running.?shoe|boot|sandal|flip.?flop|heel|loafer|oxford|dress.?shoe/i,'Clothes'],
+  [/shoe|footwear|cleat|slipper|sock|stocking/i,                                           'Clothes'],
+  [/underwear|boxer|brief|bra|lingerie|undies|swimsuit|bikini|swim.?wear/i,                'Clothes'],
+  [/hat|cap|beanie|beret|sun.?hat|visor|glove|mitten|scarf|belt|base.?layer|thermal/i,    'Clothes'],
+  [/ski.?jacket|ski.?pants|neck.?gaiter|après|apres|rain.?jacket|rash.?guard/i,           'Clothes'],
+  [/formal.?wear|casual.?outfit|comfortable.?clothes|layers|wellies|poncho/i,              'Clothes'],
+  [/jersey|gear|uniform/i,                                                                  'Clothes'],
+
+  // Toiletries
+  [/shampoo|conditioner|soap|body.?wash|shower.?gel|hand.?wash/i,                         'Toiletries'],
+  [/toothbrush|toothpaste|floss|mouthwash|whitening/i,                                    'Toiletries'],
+  [/deodorant|antiperspirant|razor|shaver|shaving/i,                                       'Toiletries'],
+  [/sunscreen|spf|sun.?block|sun.?lotion|after.?sun|aloe/i,                               'Toiletries'],
+  [/perfume|cologne|fragrance|body.?spray/i,                                               'Toiletries'],
+  [/makeup|mascara|lipstick|foundation|blush|eyeliner|concealer|bronzer|highlighter/i,    'Toiletries'],
+  [/nail.?polish|nail.?file|nail.?clipper/i,                                               'Toiletries'],
+  [/comb|hairbrush|hair.?brush|hair.?dryer|blow.?dryer|straightener|curling/i,            'Toiletries'],
+  [/towel|washcloth|flannel|lotion|moisturizer|cream|serum|toner|cleanser/i,              'Toiletries'],
+  [/hand.?sanitizer|sanitizer|face.?mask|dry.?shampoo|tweezers|cotton|q-?tip/i,          'Toiletries'],
+  [/medicine|medication|prescription|pill|tablet|capsule|vitamin|supplement/i,            'Toiletries'],
+  [/first.?aid|bandage|plaster|antiseptic|inhaler|thermometer|allergy|antihistamine/i,    'Toiletries'],
+  [/insect.?repellent|bug.?spray|deet|motion.?sickness|stain.?remover/i,                  'Toiletries'],
+  [/breath.?mint|gum|mints/i,                                                              'Toiletries'],
+
+  // Electronics
+  [/laptop|macbook|chromebook|tablet|ipad/i,                                               'Electronics'],
+  [/phone|mobile|iphone|android|smartphone/i,                                              'Electronics'],
+  [/charger|charging.?cable|usb|lightning.?cable|cable|cord|adapter|plug|converter/i,     'Electronics'],
+  [/headphone|earphone|earbud|airpod|speaker/i,                                            'Electronics'],
+  [/camera|dslr|mirrorless|gopro|tripod|drone/i,                                           'Electronics'],
+  [/power.?bank|portable.?charger|battery.?pack/i,                                        'Electronics'],
+  [/keyboard|mouse|hard.?drive|usb.?drive|thumb.?drive|flash.?drive|ssd/i,               'Electronics'],
+  [/e.?reader|kindle|kobo|monitor|screen|display|game|console|switch|remote/i,            'Electronics'],
+  [/entertainment|gps/i,                                                                    'Electronics'],
+
+  // Documents
+  [/passport|visa|ticket|boarding.?pass|itinerary|travel.?doc|reservation/i,              'Documents'],
+  [/insurance|policy|map|guidebook|guide.?book/i,                                          'Documents'],
+  [/business.?card/i,                                                                       'Documents'],
+]
+
+export function inferCategory(name: string): string {
+  for (const [pattern, category] of CATEGORY_RULES) {
+    if (pattern.test(name)) return category
+  }
+  return 'Misc'
+}
+
 export function itemEmoji(name: string, category?: string): string {
   for (const [pattern, emoji] of RULES) {
     if (pattern.test(name)) return emoji

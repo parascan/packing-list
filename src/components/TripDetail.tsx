@@ -9,6 +9,7 @@ import { getSuggestions, getMissingUsuals, getUniversalSuggestions } from '../su
 import SortableItemRow from './SortableItemRow'
 import SuggestionPanel from './SuggestionPanel'
 import AddItemModal from './AddItemModal'
+import { inferCategory } from '../emojiUtils'
 
 const TYPE_EMOJI: Record<TripType, string> = {
   beach:       '🏖️',
@@ -82,7 +83,7 @@ export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) 
   }
 
   function addItemByName(name: string) {
-    const item: PackItem = { id: crypto.randomUUID(), name, packed: false, category: 'Misc' }
+    const item: PackItem = { id: crypto.randomUUID(), name, packed: false, category: inferCategory(name) }
     onUpdate({ ...trip, items: [...trip.items, item] })
   }
 

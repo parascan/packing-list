@@ -505,15 +505,20 @@ html, body {
 /* ── Drag handle ── */
 .drag-handle {
   color: var(--gray-400);
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   cursor: grab;
-  padding: 0 2px;
+  padding: 10px 8px;
   flex-shrink: 0;
   touch-action: none;
   user-select: none;
   line-height: 1;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.drag-handle:active { cursor: grabbing; }
+.drag-handle:active { cursor: grabbing; color: var(--gray-600); }
 
 .item-photo-slot {
   width: 48px;
