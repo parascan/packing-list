@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PackItem, Trip, TripType, PRESET_CATEGORIES } from '../types'
-import { getSuggestions, getMissingUsuals } from '../suggestions'
+import { getSuggestions, getMissingUsuals, getUniversalSuggestions } from '../suggestions'
 import ItemRow from './ItemRow'
 import SuggestionPanel from './SuggestionPanel'
 import AddItemModal from './AddItemModal'
@@ -63,6 +63,7 @@ export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) 
 
   const suggestions = getSuggestions(trip, allTrips)
   const missingUsuals = getMissingUsuals(trip, allTrips)
+  const universals = getUniversalSuggestions(trip)
 
   function addItem(item: PackItem) {
     onUpdate({ ...trip, items: [...trip.items, item] })
@@ -112,6 +113,7 @@ export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) 
       <SuggestionPanel
         suggestions={suggestions}
         missingUsuals={missingUsuals}
+        universals={universals}
         onAdd={addItemByName}
       />
 

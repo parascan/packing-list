@@ -404,6 +404,8 @@ html, body {
 .suggestion-chip:hover { border-color: var(--blue); background: var(--blue-light); }
 .suggestion-chip.warning { border-color: #fcd34d; }
 .suggestion-chip.warning:hover { border-color: var(--amber); }
+.suggestion-chip.universal { border-color: #a7f3d0; color: #065f46; }
+.suggestion-chip.universal:hover { border-color: #34d399; background: #ecfdf5; }
 
 /* ── Item list ── */
 .item-list {

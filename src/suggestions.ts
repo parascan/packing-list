@@ -1,5 +1,31 @@
 import { Trip, TripType } from './types'
 
+function normalize(name: string) {
+  return name.toLowerCase().trim()
+}
+
+// Items every trip needs — shown regardless of trip type or history
+export const UNIVERSAL_ITEMS = [
+  'Toothbrush',
+  'Toothpaste',
+  'Deodorant',
+  'Phone charger',
+  'Underwear',
+  'Socks',
+  'Pajamas',
+  'Wallet',
+  'Hairbrush',
+  'Razor',
+]
+
+/**
+ * Returns universal items not yet in the trip's list.
+ */
+export function getUniversalSuggestions(currentTrip: Trip): string[] {
+  const currentNames = new Set(currentTrip.items.map(i => normalize(i.name)))
+  return UNIVERSAL_ITEMS.filter(name => !currentNames.has(normalize(name)))
+}
+
 // Hardcoded starter sets per trip type — used when no history exists
 const TEMPLATES: Record<TripType, string[]> = {
   beach: [
@@ -58,10 +84,6 @@ const TEMPLATES: Record<TripType, string[]> = {
     'Portable charger', 'Cash', 'Snacks', 'Reusable water bottle', 'Binoculars',
     'Hand warmers', 'Ear muffs', 'Blanket',
   ],
-}
-
-function normalize(name: string) {
-  return name.toLowerCase().trim()
 }
 
 /**

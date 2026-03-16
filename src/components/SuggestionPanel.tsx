@@ -3,13 +3,15 @@ import { useState } from 'react'
 interface Props {
   suggestions: string[]
   missingUsuals: string[]
+  universals: string[]
   onAdd: (name: string) => void
 }
 
-export default function SuggestionPanel({ suggestions, missingUsuals, onAdd }: Props) {
+export default function SuggestionPanel({ suggestions, missingUsuals, universals, onAdd }: Props) {
   const [open, setOpen] = useState(true)
 
-  if (suggestions.length === 0 && missingUsuals.length === 0) return null
+  const hasContent = suggestions.length > 0 || missingUsuals.length > 0 || universals.length > 0
+  if (!hasContent) return null
 
   return (
     <div className="suggestion-panel">
@@ -32,6 +34,20 @@ export default function SuggestionPanel({ suggestions, missingUsuals, onAdd }: P
               </div>
             </div>
           )}
+
+          {universals.length > 0 && (
+            <div className="suggestion-section">
+              <p className="suggestion-section-label">🧴 Don't forget the basics:</p>
+              <div className="suggestion-chips">
+                {universals.map(name => (
+                  <button key={name} className="suggestion-chip universal" onClick={() => onAdd(name)}>
+                    + {name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {suggestions.length > 0 && (
             <div className="suggestion-section">
               <p className="suggestion-section-label">
