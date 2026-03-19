@@ -4,13 +4,14 @@ import { compressImage } from '../imageUtils'
 
 interface Props {
   defaultCategory?: string
+  defaultName?: string
   onSave: (item: PackItem) => void
   onClose: () => void
 }
 
-export default function AddItemModal({ defaultCategory = '', onSave, onClose }: Props) {
-  const [name, setName] = useState('')
-  const [quantity, setQuantity] = useState<number | ''>('')
+export default function AddItemModal({ defaultCategory = '', defaultName = '', onSave, onClose }: Props) {
+  const [name, setName] = useState(defaultName)
+  const [quantity, setQuantity] = useState(1)
   const [category, setCategory] = useState(defaultCategory)
   const [photo, setPhoto] = useState<string | undefined>()
   const [loading, setLoading] = useState(false)
@@ -30,7 +31,7 @@ export default function AddItemModal({ defaultCategory = '', onSave, onClose }: 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!name.trim()) return
-    const qty = typeof quantity === 'number' && quantity > 1 ? quantity : undefined
+    const qty = quantity > 1 ? quantity : undefined
     onSave({
       id: crypto.randomUUID(),
       name: name.trim(),
@@ -52,7 +53,6 @@ export default function AddItemModal({ defaultCategory = '', onSave, onClose }: 
           <label>
             Item name
             <input
-              autoFocus
               type="text"
               placeholder="e.g. Blue striped shirt"
               value={name}
@@ -73,16 +73,14 @@ export default function AddItemModal({ defaultCategory = '', onSave, onClose }: 
               {PRESET_CATEGORIES.map(c => <option key={c} value={c} />)}
             </datalist>
           </label>
-          <label>
-            Quantity (optional)
-            <input
-              type="number"
-              min={2}
-              placeholder="Leave blank for 1"
-              value={quantity}
-              onChange={e => setQuantity(e.target.value === '' ? '' : Number(e.target.value))}
-            />
-          </label>
+          <div className="qty-row">
+            <span className="qty-label">Quantity</span>
+            <div className="qty-stepper">
+              <button type="button" className="qty-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>−</button>
+              <span className="qty-value">{quantity}</span>
+              <button type="button" className="qty-btn" onClick={() => setQuantity(q => q + 1)}>+</button>
+            </div>
+          </div>
 
           {/* Photo */}
           <div className="photo-section">

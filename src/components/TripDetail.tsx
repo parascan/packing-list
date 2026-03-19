@@ -58,6 +58,7 @@ function groupByCategory(items: PackItem[]): { category: string; items: PackItem
 export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) {
   const [showAddModal, setShowAddModal] = useState(false)
   const [addToCategory, setAddToCategory] = useState('')
+  const [addWithName, setAddWithName] = useState('')
 
   const suggestions = getSuggestions(trip, allTrips)
   const missingUsuals = getMissingUsuals(trip, allTrips)
@@ -80,11 +81,13 @@ export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) 
   function addItem(item: PackItem) {
     onUpdate({ ...trip, items: [...trip.items, item] })
     setShowAddModal(false)
+    setAddWithName('')
   }
 
-  function addItemByName(name: string) {
-    const item: PackItem = { id: crypto.randomUUID(), name, packed: false, category: inferCategory(name) }
-    onUpdate({ ...trip, items: [...trip.items, item] })
+  function openAddModalWithName(name: string) {
+    setAddWithName(name)
+    setAddToCategory(inferCategory(name))
+    setShowAddModal(true)
   }
 
   function toggleItem(id: string) {
@@ -96,6 +99,7 @@ export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) 
   }
 
   function openAddModal(category = '') {
+    setAddWithName('')
     setAddToCategory(category)
     setShowAddModal(true)
   }
@@ -136,7 +140,7 @@ export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) 
         suggestions={suggestions}
         missingUsuals={missingUsuals}
         universals={universals}
-        onAdd={addItemByName}
+        onAdd={openAddModalWithName}
       />
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
@@ -177,6 +181,7 @@ export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) 
       {showAddModal && (
         <AddItemModal
           defaultCategory={addToCategory}
+          defaultName={addWithName}
           onSave={addItem}
           onClose={() => setShowAddModal(false)}
         />
