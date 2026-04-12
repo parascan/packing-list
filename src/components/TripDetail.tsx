@@ -9,6 +9,7 @@ import { getSuggestions, getMissingUsuals, getUniversalSuggestions } from '../su
 import SortableItemRow from './SortableItemRow'
 import SuggestionPanel from './SuggestionPanel'
 import AddItemModal from './AddItemModal'
+import NewTripModal from './NewTripModal'
 import { inferCategory } from '../emojiUtils'
 
 const TYPE_EMOJI: Record<TripType, string> = {
@@ -56,6 +57,7 @@ function groupByCategory(items: PackItem[]): { category: string; items: PackItem
 }
 
 export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) {
+  const [showEditModal, setShowEditModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
   const [addToCategory, setAddToCategory] = useState('')
   const [addWithName, setAddWithName] = useState('')
@@ -117,7 +119,10 @@ export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) 
       <div className="detail-header">
         <button className="btn-back" onClick={onBack}>← Back</button>
         <div className="detail-title-block">
-          <h1>{TYPE_EMOJI[trip.type]} {trip.name}</h1>
+          <h1>
+            {TYPE_EMOJI[trip.type]} {trip.name}
+            <button className="btn-icon edit-trip-btn" onClick={() => setShowEditModal(true)} aria-label="Edit trip">✏️</button>
+          </h1>
           <p className="detail-subtitle">
             {trip.destination} · {formatDate(trip.startDate)} – {formatDate(trip.endDate)}
           </p>
@@ -177,6 +182,14 @@ export default function TripDetail({ trip, allTrips, onUpdate, onBack }: Props) 
       </DndContext>
 
       <button className="fab" onClick={() => openAddModal('')} aria-label="Add item">+</button>
+
+      {showEditModal && (
+        <NewTripModal
+          initialTrip={trip}
+          onSave={updated => { onUpdate(updated); setShowEditModal(false) }}
+          onClose={() => setShowEditModal(false)}
+        />
+      )}
 
       {showAddModal && (
         <AddItemModal

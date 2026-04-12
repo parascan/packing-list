@@ -334,7 +334,17 @@ html, body {
   font-size: 1.4rem;
   font-weight: 700;
   margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+.edit-trip-btn {
+  font-size: .9rem;
+  opacity: .55;
+  padding: 2px 4px;
+  line-height: 1;
+}
+.edit-trip-btn:hover { opacity: 1; }
 .detail-subtitle {
   font-size: .875rem;
   color: var(--gray-600);

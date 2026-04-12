@@ -17,31 +17,34 @@ const TRIP_TYPES: { value: TripType; label: string; emoji: string }[] = [
 ]
 
 interface Props {
+  initialTrip?: Trip
   onSave: (trip: Trip) => void
   onClose: () => void
 }
 
-export default function NewTripModal({ onSave, onClose }: Props) {
+export default function NewTripModal({ initialTrip, onSave, onClose }: Props) {
   const today = new Date().toISOString().slice(0, 10)
-  const [name, setName] = useState('')
-  const [destination, setDestination] = useState('')
-  const [startDate, setStartDate] = useState(today)
-  const [endDate, setEndDate] = useState(today)
-  const [type, setType] = useState<TripType>('city')
+  const [name, setName] = useState(initialTrip?.name ?? '')
+  const [destination, setDestination] = useState(initialTrip?.destination ?? '')
+  const [startDate, setStartDate] = useState(initialTrip?.startDate ?? today)
+  const [endDate, setEndDate] = useState(initialTrip?.endDate ?? today)
+  const [type, setType] = useState<TripType>(initialTrip?.type ?? 'city')
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!name.trim() || !destination.trim()) return
-    const trip: Trip = {
-      id: crypto.randomUUID(),
-      name: name.trim(),
-      destination: destination.trim(),
-      startDate,
-      endDate,
-      type,
-      items: [],
-      createdAt: new Date().toISOString(),
-    }
+    const trip: Trip = initialTrip
+      ? { ...initialTrip, name: name.trim(), destination: destination.trim(), startDate, endDate, type }
+      : {
+          id: crypto.randomUUID(),
+          name: name.trim(),
+          destination: destination.trim(),
+          startDate,
+          endDate,
+          type,
+          items: [],
+          createdAt: new Date().toISOString(),
+        }
     onSave(trip)
   }
 
@@ -49,7 +52,7 @@ export default function NewTripModal({ onSave, onClose }: Props) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>New Trip</h2>
+          <h2>{initialTrip ? 'Edit Trip' : 'New Trip'}</h2>
           <button className="btn-icon" onClick={onClose}>✕</button>
         </div>
         <form onSubmit={handleSubmit} className="modal-form">
@@ -100,7 +103,7 @@ export default function NewTripModal({ onSave, onClose }: Props) {
             </div>
           </div>
           <button type="submit" className="btn-primary" disabled={!name.trim() || !destination.trim()}>
-            Create Trip
+            {initialTrip ? 'Save Changes' : 'Create Trip'}
           </button>
         </form>
       </div>
